@@ -1,0 +1,29 @@
+spring:
+  config:
+    import: optional:file:.env.local[.properties]
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+  sql:
+    init:
+      platform: postgresql
+      mode: always
+  jpa:
+    show-sql: true
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+  output:
+    ansi:
+      enabled: always
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR

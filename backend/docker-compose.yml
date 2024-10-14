@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: 'postgres:15'
+    container_name: 'promptmaster-postgres'
+    environment:
+      - POSTGRES_USER=salt
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=promptmasterdb
+    volumes:
+      - .data/postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    restart: always
