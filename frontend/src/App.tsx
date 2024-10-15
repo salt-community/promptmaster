@@ -1,35 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import ContactForm from "./components/ContactForm";
+import Footer from "./components/Footer";
+import ImageGenerator from "./components/ImageGenerator";
+import TopNav from "./components/TopNav";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <TopNav />
+      {/* <div className="divider divider-neutral bg-custom-secondary m-0" ></div> */}
+      <div className="bg-custom-secondary text-center pt-20 pb-20">
+        <h1 className="text-6xl font-bold text-white">
+          AI Interactive Prompt Game
+        </h1>
+        <h1 className="text-6xl font-bold text-white">Prompt Master</h1>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ImageGenerator/>
+      <ContactForm/>
+      <Footer/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
