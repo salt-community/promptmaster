@@ -3,9 +3,12 @@ import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 import GameHeader from "./components/GameHeader";
 import ImageGenerator from "./components/ImageGenerator";
+import ScoreCard from "./components/ScoreCard";
+import TargetImage from "./components/TargetImage";
 import TopNav from "./components/TopNav";
 
 function App() {
+  
   return (
     <>
       <TopNav />
@@ -17,7 +20,13 @@ function App() {
         <h1 className="text-6xl font-bold text-white">Prompt Master</h1>
       </div> */}
       <GameHeader/>
+      <div className="flex justify-evenly  bg-custom-tertiary p-6">
+      <TargetImage/>
+      <ScoreCard/>
       <ImageGenerator/>
+
+      </div>
+
       <ContactForm/>
       <Footer/>
     </>
