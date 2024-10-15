@@ -109,7 +109,7 @@ function ContactForm() {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-blue-700 transition-transform transform hover:scale-105 focus:ring-4 focus:ring-blue-300 focus:outline-none"
+              className="w-full text-white font-semibold py-3 btn btn-primary"
             >
               Submit
             </button>
