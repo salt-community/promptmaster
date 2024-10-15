@@ -13,10 +13,10 @@ function ImageGenerator() {
   async function sendPromptToOpenAI() {
     setIsLoading(true);
     const apiRequestBody = {
-      model: "dall-e-2",
+      model: "dall-e-3",
       prompt: prompt === "" ? "a white siamese cat" : prompt,
       n: 1,
-      size: "512x512",
+      size: "1024x1024",
     };
     await fetch("https://api.openai.com/v1/images/generations", {
       method: "POST",
@@ -64,7 +64,7 @@ function ImageGenerator() {
         </h1>
         <h1 className="text-5xl font-bold text-white">Prompt Master</h1>
       </div> */}
-      <div className="flex flex-col items-center justify-center  bg-[#fbdce3] p-6">
+      <div className="flex flex-col items-center justify-center  bg-custom-tertiary p-6">
         {/* <div className="text-center mb-6">
                     <h1 className="text-6xl font-bold text-white mb-4">Prompt Master</h1>
                 </div> */}
