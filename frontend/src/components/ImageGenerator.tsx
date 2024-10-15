@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import image from "../assets/img-Rhj21LhzqVMHdTiPr7EQNcDV.png";
 import loadingGif from "../assets/Cube@1x-1.0s-200px-200px.gif";
 
@@ -51,25 +51,23 @@ function ImageGenerator() {
     sendPromptToOpenAI();
   }
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
     setPrompt(event.target.value);
     console.log(prompt);
   }
 
+  useEffect(() => {
+    if (fetchError) {
+      setTimeout(() => {
+        setfetchError(false);
+      }, 2000);
+    }
+  }, [fetchError]);
+
   return (
     <>
-      {/* <div className="bg-custom-tertiary text-center pt-10 pb-10 w-full">
-        <h1 className="text-5xl font-bold text-white">
-          AI Interactive Prompt Game
-        </h1>
-        <h1 className="text-5xl font-bold text-white">Prompt Master</h1>
-      </div> */}
-      <div className="flex flex-col items-center justify-center  bg-custom-tertiary p-6">
-        {/* <div className="text-center mb-6">
-                    <h1 className="text-6xl font-bold text-white mb-4">Prompt Master</h1>
-                </div> */}
-
-        <div className="w-2/3 lg:w-1/3 bg-custom-primary rounded-lg shadow-lg p-6 mb-6">
+      {/* <div className="flex flex-col items-center justify-center  bg-custom-tertiary p-6"> */}
+        <div className=" w-1/3  bg-custom-primary rounded-lg shadow-lg p-6 mb-6">
           <div className=" flex items-center justify-center mb-4">
             {isLoading ? (
               <img src={loadingGif} alt="Loading..." className="w-full" />
@@ -82,14 +80,13 @@ function ImageGenerator() {
             )}
           </div>
 
-          <div className="flex items-center justify-between rounded-lg bg-slate-400 p-4 shadow-md w-full mx-auto">
-            <input
-              type="text"
+          <div className="flex items-center justify-between rounded-lg bg-slate-400 p-4 shadow-md">
+            <textarea
               placeholder="Enter your prompt here"
               name="prompt"
               value={prompt}
               onChange={handleChange}
-              className="flex-grow bg-white text-gray-700 text-lg px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-custom-secondary placeholder-gray-500 overflow-ellipsis"
+              className=" bg-white text-gray-700 text-lg px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-secondary placeholder-gray-500 overflow-ellipsis"
             />
             <button
               className="bg-custom-secondary hover:bg-orange-300 text-white font-bold px-6 py-2 rounded-full ml-4 transition-all duration-300"
@@ -98,14 +95,15 @@ function ImageGenerator() {
               Generate
             </button>
           </div>
-        </div>
-        {fetchError && (
+          {fetchError && (
           <p className="text-red-500 text-sm break-words whitespace-normal flex justify-center items-center text-center">
             {" "}
             {`Sorry,Please try again later.${fetchErrorLog}`}
           </p>
         )}
-      </div>
+        </div>
+       
+      {/* </div> */}
     </>
   );
 }
