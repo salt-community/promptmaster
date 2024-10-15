@@ -2,8 +2,16 @@ import { ChangeEvent, useEffect, useState } from "react";
 import image from "../assets/img-Rhj21LhzqVMHdTiPr7EQNcDV.png";
 import loadingGif from "../assets/Cube@1x-1.0s-200px-200px.gif";
 
-function ImageGenerator() {
-  const [imageUrl, setImageUrl] = useState<string>("");
+
+type Props = {
+    imageUrl: string;
+    setImageUrl: React.Dispatch<React.SetStateAction<string>>;
+    setScore: React.Dispatch<React.SetStateAction<string>>;
+    targetImageUrl: string;
+}
+
+function ImageGenerator({imageUrl,setImageUrl,setScore,targetImageUrl}:Props) {
+//   const [imageUrl, setImageUrl] = useState<string>("");
   const [prompt, setPrompt] = useState<string>("");
   const API_KEY = import.meta.env.VITE_API_KEY;
   const [fetchError, setfetchError] = useState(false);
@@ -36,8 +44,9 @@ function ImageGenerator() {
         setImageUrl(data?.data[0]?.url);
         console.log(data?.data[0]?.url);
         console.log(imageUrl);
-      })
+      }).then(()=> console.log("iam here"))
       .catch((e) => {
+        setScore("");
         setfetchError(true);
         setfetchErrorLog(e.message);
       })
@@ -46,9 +55,73 @@ function ImageGenerator() {
       });
   }
 
-  function handleClick() {
+  async function sendimagestoOpenAI() {
+    setIsLoading(true);
+    console.log(imageUrl);
+    console.log(targetImageUrl);
+    const apiRequestBody = {
+      model: "gpt-4o-mini",
+      messages: [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Compare these two images and assign a score in percentage on how the objects in the image are related using semantic similarity (i.e., whether the images depict similar objects).Do not give 0% as an answer. Reply as a string with just the score as percentage"
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": targetImageUrl,
+              }
+            },
+            {
+              "type": "image_url",
+              "image_url": {
+                "url": imageUrl,
+              }
+            }
+          ]
+        }
+      ],
+      "max_tokens": 300,
+
+    };
+    await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + API_KEY,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(apiRequestBody),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setScore(data?.choices[0]?.message?.content);
+      })
+      .catch((e) => {
+        setScore("");
+        setfetchError(true);
+        setfetchErrorLog(e.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+   async function handleClick() {
     console.log("hi");
-    sendPromptToOpenAI();
+    setScore("");
+    await sendPromptToOpenAI();
+    console.log("prompt is done")
+    await sendimagestoOpenAI();
+    console.log("image comparison is done");
   }
 
   function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {

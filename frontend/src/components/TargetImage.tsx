@@ -2,8 +2,15 @@ import { useEffect, useState } from "react";
 import image from "../assets/img-Rhj21LhzqVMHdTiPr7EQNcDV.png";
 import loadingGif from "../assets/Cube@1x-1.0s-200px-200px.gif";
 
-function TargetImage() {
-  const [imageUrl, setImageUrl] = useState<string>("");
+
+type Props = {
+    targetImageUrl: string;
+    setTargetImageUrl: React.Dispatch<React.SetStateAction<string>>;
+}
+
+
+function TargetImage({targetImageUrl,setTargetImageUrl}:Props) {
+//   const [imageUrl, setImageUrl] = useState<string>("");
   const API_KEY = import.meta.env.VITE_API_KEY;
   const [fetchError, setfetchError] = useState(false);
   const [fetchErrorLog, setfetchErrorLog] = useState("");
@@ -32,9 +39,9 @@ function TargetImage() {
         return response.json();
       })
       .then((data) => {
-        setImageUrl(data?.data[0]?.url);
+        setTargetImageUrl(data?.data[0]?.url);
         console.log(data?.data[0]?.url);
-        console.log(imageUrl);
+        console.log(targetImageUrl);
       })
       .catch((e) => {
         setfetchError(true);
@@ -68,7 +75,7 @@ function TargetImage() {
               <img src={loadingGif} alt="Loading..." className="w-full" />
             ) : (
               <img
-                src={imageUrl === "" ? image : imageUrl}
+                src={targetImageUrl === "" ? image : targetImageUrl}
                 alt="Generated"
                 className="w-full rounded-md"
               />

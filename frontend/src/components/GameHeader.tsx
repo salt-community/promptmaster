@@ -10,7 +10,7 @@ function GameHeader() {
           <div>
             <h1 className="text-5xl font-bold">Prompt Master</h1>
             <p className="py-6">
-            Welcome to Prompt Master, the ultimate game where creativity meets challenge! Can you craft the perfect prompt to recreate this stunning image? Test your skills and become the master of imagination!
+            Welcome to Prompt Master, the ultimate game where creativity meets challenge! Can you craft the perfect prompt to recreate these stunning images? Test your skills and become the master of imagination!
             </p>
             <button className="btn btn-primary">Get Started</button>
           </div>
