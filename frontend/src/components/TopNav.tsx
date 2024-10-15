@@ -3,7 +3,7 @@ function TopNav() {
     <>
       <div className="navbar bg-custom-secondary pt-5 ">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl text-white">Salt</a>
+          <a className="btn btn-ghost text-xl text-white">{"</salt>"}</a>
         </div>
         <div className="flex-none">
           <button className="btn bg-white text-black">

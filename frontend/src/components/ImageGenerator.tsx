@@ -58,7 +58,13 @@ function ImageGenerator() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center  bg-custom-tertiary p-6">
+      {/* <div className="bg-custom-tertiary text-center pt-10 pb-10 w-full">
+        <h1 className="text-5xl font-bold text-white">
+          AI Interactive Prompt Game
+        </h1>
+        <h1 className="text-5xl font-bold text-white">Prompt Master</h1>
+      </div> */}
+      <div className="flex flex-col items-center justify-center  bg-[#fbdce3] p-6">
         {/* <div className="text-center mb-6">
                     <h1 className="text-6xl font-bold text-white mb-4">Prompt Master</h1>
                 </div> */}
