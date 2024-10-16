@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import image from "../assets/img-Rhj21LhzqVMHdTiPr7EQNcDV.png";
+import image from "../assets/empty.png";
 import loadingGif from "../assets/Cube@1x-1.0s-200px-200px.gif";
 
 
