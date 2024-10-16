@@ -10,7 +10,7 @@ import TopNav from "./components/TopNav";
 
 function App() {
   const [targetImageUrl, setTargetImageUrl] = useState<string>("https://images.ctfassets.net/kftzwdyauwt9/1LhyQ3RdyPfvqqHJxEfcYe/78e9693b3e5e9ec1711c7a8e69a97e4e/dalle_3_cookie.jpg?w=1920&q=90&fm=webp");
-  const [imageUrl, setImageUrl] = useState<string>("");
+  // const [imageUrl, setImageUrl] = useState<string>("");
   const [score, setScore] = useState<string>("")
   return (
     <>
@@ -26,7 +26,7 @@ function App() {
       <div className="flex justify-evenly  bg-custom-tertiary p-6">
       <TargetImage targetImageUrl ={targetImageUrl} setTargetImageUrl={setTargetImageUrl}/>
       {score && <ScoreCard score={score} setScore={setScore}/> }
-      <ImageGenerator imageUrl={imageUrl} setImageUrl={setImageUrl} setScore={setScore} targetImageUrl={targetImageUrl}/>
+      <ImageGenerator setScore={setScore} targetImageUrl={targetImageUrl}/>
 
       </div>
 

@@ -4,14 +4,13 @@ import loadingGif from "../assets/Cube@1x-1.0s-200px-200px.gif";
 
 
 type Props = {
-    imageUrl: string;
-    setImageUrl: React.Dispatch<React.SetStateAction<string>>;
     setScore: React.Dispatch<React.SetStateAction<string>>;
     targetImageUrl: string;
 }
 
-function ImageGenerator({imageUrl,setImageUrl,setScore,targetImageUrl}:Props) {
-//   const [imageUrl, setImageUrl] = useState<string>("");
+function ImageGenerator({setScore,targetImageUrl}:Props) {
+  const [imageUrl, setImageUrl] = useState<string>("");
+  let imageUrl2="";
   const [prompt, setPrompt] = useState<string>("");
   const API_KEY = import.meta.env.VITE_API_KEY;
   const [fetchError, setfetchError] = useState(false);
@@ -42,6 +41,7 @@ function ImageGenerator({imageUrl,setImageUrl,setScore,targetImageUrl}:Props) {
       })
       .then((data) => {
         setImageUrl(data?.data[0]?.url);
+        imageUrl2=data?.data[0]?.url;
         console.log(data?.data[0]?.url);
         console.log(imageUrl);
       }).then(()=> console.log("iam here"))
@@ -78,7 +78,7 @@ function ImageGenerator({imageUrl,setImageUrl,setScore,targetImageUrl}:Props) {
             {
               "type": "image_url",
               "image_url": {
-                "url": imageUrl,
+                "url": imageUrl2,
               }
             }
           ]
