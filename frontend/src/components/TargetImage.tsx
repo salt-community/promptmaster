@@ -55,6 +55,7 @@ function TargetImage({ targetImageUrl, setTargetImageUrl }: Props) {
     sendPromptToOpenAI();
   }
 
+
   useEffect(() => {
     if (fetchError) {
       setTimeout(() => {
