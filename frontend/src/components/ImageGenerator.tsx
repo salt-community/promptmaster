@@ -67,7 +67,7 @@ function ImageGenerator({setScore,targetImageUrl}:Props) {
           "content": [
             {
               "type": "text",
-              "text": "Compare these two images and assign a score in percentage on how the objects in the image are related using semantic similarity (i.e., whether the images depict similar objects).Do not give 0% as an answer. Reply as a string with just the score as percentage"
+              "text": "Compare these two images and assign a score in percentage on how the objects in the image are related using semantic similarity (i.e., whether the images depict similar objects).Do not give 0 as an answer. Reply as a number with just the score as a value between 1 and 100"
             },
             {
               "type": "image_url",
