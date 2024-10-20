@@ -1,11 +1,62 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 type Props = {
-  score: string;
+  playerScore: string;
   playerName: string;
+  setPlayerName: React.Dispatch<React.SetStateAction<string>>;
+  setScore: React.Dispatch<React.SetStateAction<string>>;
+  setUserInfoEntered: React.Dispatch<React.SetStateAction<boolean>>;
+  playerPhone: string;
+  setPlayerPhone: React.Dispatch<React.SetStateAction<string>>;
+  setImageUrl: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function ScoreCard({ score, playerName }: Props) {
-  const handleSave = () => {
-    console.log(playerName + ":" + score);
+export type NewPost = {
+  name: string;
+  phone: string
+  score: number;
+};
+function ScoreCard({ playerScore, playerName, setPlayerName, setScore, setUserInfoEntered, playerPhone, setPlayerPhone, setImageUrl}: Props) {
+  const baseURL= import.meta.env.VITE_BASE_URL;
+  const queryClient = useQueryClient();
+  const {
+    mutate: postScore,
+    error: postError,
+    isPending,
+  } = useMutation<unknown, Error, NewPost>({
+    mutationFn: (newPost) =>
+      fetch(`${baseURL}/score`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newPost),
+      }).then((res) => {
+        if (!res.ok) {
+          throw new Error(`Error Status: ${res.status}`);
+        }
+        return res.json();
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fetch1"] });
+      setScore('');
+      setPlayerName("");
+      setPlayerPhone("");
+      setImageUrl("");
+      setUserInfoEntered(false);
+    },
+  });
+
+
+
+  const handleNext = () => {
+    console.log(playerName + ":" + playerScore);
+
+    postScore({
+      name: playerName,
+      phone: playerPhone,
+      score: parseInt(playerScore,10)
+    });
   };
   return (
     <>
@@ -16,22 +67,26 @@ function ScoreCard({ score, playerName }: Props) {
             <div
               className="radial-progress"
               style={{
-                "--value": `${score}`,
+                "--value": `${playerScore}`,
                 "--size": "12rem",
                 "--thickness": "4px",
               }}
               role="progressbar"
             >
-              {score + "%"}
+              {playerScore + "%"}
             </div>
           </div>
           {/* <p className="text-4xl font-extrabold text-green-400">{score}</p> */}
           <button
-            onClick={handleSave}
+            onClick={handleNext}
             className="bg-custom-secondary text-white py-2 px-4 rounded hover:bg-opacity-80"
           >
             Save Score
           </button>
+          {isPending && <p className="bg-custom-secondary break-words whitespace-normal text-center">{`Loading`}</p>}
+          {postError && (
+          <p className="text-red-500 break-words whitespace-normal text-center ">{`Please try again later.`}</p>
+        )}
         </div>
       </div>
     </>
