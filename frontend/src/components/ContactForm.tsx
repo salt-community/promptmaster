@@ -1,4 +1,15 @@
-import { ChangeEvent, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+
+
+export type NewPost = {
+  name: string;
+  company: string;
+  email: string;
+  phone: string
+
+};
+
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -6,6 +17,36 @@ function ContactForm() {
     company: "",
     email: "",
     phonenumber: "",
+  });
+  const baseURL= import.meta.env.VITE_BASE_URL;
+  const [postErrorDisplay, setPostErrorDisplay] = useState(false);
+
+  const {
+    mutate: postForm,
+    error: postError,
+    isPending,
+  } = useMutation<unknown, Error, NewPost>({
+    mutationFn: (newPost) =>
+      fetch(`${baseURL}/form`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newPost),
+      }).then((res) => {
+        if (!res.ok) {
+          throw new Error(`Error Status: ${res.status}`);
+        }
+        return res.json();
+      }),
+    onSuccess: () => {
+      setFormData({
+        name: "",
+        company: "",
+        email: "",
+        phonenumber: "",
+      })
+    },
   });
 
   function handleChange(
@@ -23,9 +64,25 @@ function ContactForm() {
     console.log(formData);
   }
 
-  function handleSubmit() {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     console.log(formData);
+    postForm({
+      name: formData.name,
+      company: formData.company,
+      email: formData.email,
+      phone: formData.phonenumber
+    });
   }
+
+  useEffect(() => {
+    if (postError) {
+      setPostErrorDisplay(true);
+      setTimeout(() => {
+        setPostErrorDisplay(false);
+      }, 2000);
+    }
+  }, [postError]);
   return (
     <>
       <div className="mt-7 mb-4 flex flex-col items-center">
@@ -109,10 +166,15 @@ function ContactForm() {
 
             <button
               type="submit"
-              className="w-full text-white font-semibold py-3 btn btn-primary"
+              className={`w-full text-white font-semibold py-3 btn btn-primary ${formData.name==="" || formData.company==="" || formData.email==="" ? 'btn-disabled' : ''
+        }`}
             >
               Submit
             </button>
+            {isPending && <p className="bg-custom-secondary break-words whitespace-normal text-center">{`Loading`}</p>}
+          {postErrorDisplay && (
+          <p className="text-red-500 break-words whitespace-normal text-center ">{`Please try again later.`}</p>
+        )}
           </form>
         </div>
       </div>
