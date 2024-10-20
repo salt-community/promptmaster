@@ -22,11 +22,15 @@ public class ScoreBoard {
     @Column
     private long score;
 
+    @Column
+    private String phone;
+
     public ScoreBoard() {
 
     }
-    public ScoreBoard(String name, long score) {
+    public ScoreBoard(String name, long score, String phone) {
         this.name = name;
         this.score = score;
+        this.phone = phone;
     }
 }
