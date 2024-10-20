@@ -2,18 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 
-type Props = {
-    playerName: string;
-    setPlayerName: React.Dispatch<React.SetStateAction<string>>;
-}
-
 type scoreType = {
     name: string;
     score: number;
+    phone: string;
 }
 
-function LeaderBoard({playerName,setPlayerName}:Props) {
-//   const [playerName, setPlayerName] = useState<string>("");
+function LeaderBoard() {
 
 const baseURL= import.meta.env.VITE_BASE_URL;
 const [fetchErrorLog, setfetchErrorLog] = useState("");
@@ -39,48 +34,12 @@ useEffect(() => {
 
 
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
   const topThree = leaderboard?.sort((a: scoreType, b:scoreType) => b.score - a.score).slice(0, 5);
-  const handleLogin = () => {
-    if(playerName==="") return;
-    setLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setPlayerName("");
-    setLoggedIn(false);
-  };
 
   return (
     <>
-      <div className=" flex flex-col items-center bg-custom-tertiary pb-4 min-h-32">
-        {loggedIn === true ? (
-          <button
-            onClick={handleLogout}
-            className="bg-custom-secondary text-white py-2 px-4 rounded hover:bg-opacity-80"
-          >
-            Logout
-          </button>
-        ) : (
-          <div className="flex flex-col items-center">
-            <p className="text-white p-1">Log in to challenge the leaderboard</p>
-            <input
-              type="text"
-              placeholder="Enter player name"
-              value={playerName}
-              onChange={(e) => setPlayerName(e.target.value)}
-              className="border border-gray-300 p-2 rounded mb-2 w-full max-w-xs"
-            />
-
-            <button
-              onClick={handleLogin}
-              className="bg-custom-secondary text-white py-2 px-4 rounded hover:bg-opacity-80"
-            >
-              Login
-            </button>
-          </div>
-        )}
-      </div>
+      
       <div className="bg-custom-primary p-6  shadow-md">
         <h1 className="text-custom-tertiary text-3xl font-bold mb-4 text-center">
           Leaderboard
