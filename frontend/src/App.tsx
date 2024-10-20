@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./App.css";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
-import GameHeader from "./components/GameHeader";
 import ImageGenerator from "./components/ImageGenerator";
 import ScoreCard from "./components/ScoreCard";
 import TargetImage from "./components/TargetImage";
@@ -14,6 +13,9 @@ function App() {
   // const [imageUrl, setImageUrl] = useState<string>("");
   const [score, setScore] = useState<string>('');
   const [playerName, setPlayerName] = useState<string>("");
+  const [playerPhone, setPlayerPhone] = useState('');
+  const [userInfoEntered, setUserInfoEntered] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string>("");
   return (
     <>
       <TopNav />
@@ -24,14 +26,32 @@ function App() {
         </h1>
         <h1 className="text-6xl font-bold text-white">Prompt Master</h1>
       </div> */}
-      <GameHeader/>
+      {/* <GameHeader/> */}
       <div className="flex justify-evenly  bg-custom-tertiary p-6">
       <TargetImage targetImageUrl ={targetImageUrl} setTargetImageUrl={setTargetImageUrl}/>
-      {score && <ScoreCard score={score} playerName={playerName}/> }
-      <ImageGenerator setScore={setScore} targetImageUrl={targetImageUrl}/>
+      {score && <ScoreCard 
+                  playerScore={score} 
+                  playerName={playerName} 
+                  setPlayerName={setPlayerName}
+                  setScore={setScore} 
+                  setUserInfoEntered={setUserInfoEntered} 
+                  playerPhone={playerPhone} 
+                  setPlayerPhone={setPlayerPhone}
+                  setImageUrl={setImageUrl} /> }
+      <ImageGenerator 
+        setScore={setScore} 
+        targetImageUrl={targetImageUrl} 
+        playerName={playerName} 
+        setPlayerName={setPlayerName} 
+        playerPhone={playerPhone} 
+        setPlayerPhone={setPlayerPhone} 
+        userInfoEntered={userInfoEntered} 
+        setUserInfoEntered={setUserInfoEntered}
+        imageUrl={imageUrl} 
+        setImageUrl={setImageUrl} />
 
       </div>
-      <LeaderBoard playerName={playerName} setPlayerName={setPlayerName}/>
+      <LeaderBoard />
       <ContactForm/>
       <Footer/>
     </>
