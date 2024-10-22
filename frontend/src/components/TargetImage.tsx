@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-import image from "../assets/img-Rhj21LhzqVMHdTiPr7EQNcDV.png";
-import loadingGif from "../assets/Cube@1x-1.0s-200px-200px.gif";
+// import { useEffect, useState } from "react";
+// import image from "../assets/img-Rhj21LhzqVMHdTiPr7EQNcDV.png";
+// import loadingGif from "../assets/Cube@1x-1.0s-200px-200px.gif";
 
 type Props = {
   targetImageUrl: string;
   setTargetImageUrl: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function TargetImage({ targetImageUrl, setTargetImageUrl }: Props) {
+function TargetImage({ targetImageUrl }: Props) {
   //   const [imageUrl, setImageUrl] = useState<string>("");
   // const API_KEY = import.meta.env.VITE_API_KEY;
   // const [fetchError, setfetchError] = useState(false);
   // const [fetchErrorLog, setfetchErrorLog] = useState("");
-   const [isLoading, setIsLoading] = useState(false);
+  //  const [isLoading, setIsLoading] = useState(false);
 
   // async function sendPromptToOpenAI() {
   //   setIsLoading(true);
@@ -69,15 +69,20 @@ function TargetImage({ targetImageUrl, setTargetImageUrl }: Props) {
       {/* <div className="flex flex-col items-center justify-center  bg-custom-tertiary p-6"> */}
       <div className="flex-col w-[35%] bg-custom-primary rounded-lg shadow-lg p-6 mb-6 ">
         <div className=" flex items-center justify-center mb-4">
-          {isLoading ? (
+          {/* {isLoading ? (
             <img src={loadingGif} alt="Loading..." className="w-full" />
           ) : (
             <img
-              src={targetImageUrl === "" ? image : `data:image/png;base64,${targetImageUrl}`}
+              src={ `data:image/png;base64,${targetImageUrl}`}
               alt="Generated"
               className="w-full rounded-md"
             />
-          )}
+          )} */}
+           <img
+              src={ `data:image/png;base64,${targetImageUrl}`}
+              alt="Generated"
+              className="w-full rounded-md"
+            />
         </div>
         <div className="flex justify-stretch items-center">
           <p className="text-center text-lg font-semibold text-gray-800  border-l-4 rounded-md ">
