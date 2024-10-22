@@ -2,9 +2,9 @@ spring:
   config:
     import: optional:file:.env.local[.properties]
   imagekit:
-    url-endpoint: ${url-endpoint}
-    private-key: ${private-key}
-    public-key: ${public-key}
+    url-endpoint: ${IMAGE_KIT_URL_ENDPOINT}
+    private-key: ${IMAGE_KIT_PRIVATE_KEY}
+    public-key: ${IMAGE_KIT_PUBLIC_KEY}
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${DATABASE_URL}
