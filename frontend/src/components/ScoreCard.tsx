@@ -89,7 +89,7 @@ function ScoreCard({
                 "--value": `${playerScore}`,
                 "--size": "12rem",
                 "--thickness": "4px",
-              }}
+              }as React.CSSProperties}
               role="progressbar"
             >
               {playerScore + "%"}
