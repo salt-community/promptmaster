@@ -8,16 +8,34 @@ type Props = {
   setUserInfoEntered: React.Dispatch<React.SetStateAction<boolean>>;
   playerPhone: string;
   setPlayerPhone: React.Dispatch<React.SetStateAction<string>>;
+  imageUrl: string;
   setImageUrl: React.Dispatch<React.SetStateAction<string>>;
+  prompt: string;
+  setPrompt: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export type NewPost = {
   name: string;
-  phone: string
+  phone: string;
   score: number;
+  prompt: string;
+  base64: string;
+
 };
-function ScoreCard({ playerScore, playerName, setPlayerName, setScore, setUserInfoEntered, playerPhone, setPlayerPhone, setImageUrl}: Props) {
-  const baseURL= import.meta.env.VITE_BASE_URL;
+function ScoreCard({
+  playerScore,
+  playerName,
+  setPlayerName,
+  setScore,
+  setUserInfoEntered,
+  playerPhone,
+  setPlayerPhone,
+  imageUrl,
+  setImageUrl,
+  prompt,
+  setPrompt,
+}: Props) {
+  const baseURL = import.meta.env.VITE_BASE_URL;
   const queryClient = useQueryClient();
   const {
     mutate: postScore,
@@ -39,15 +57,14 @@ function ScoreCard({ playerScore, playerName, setPlayerName, setScore, setUserIn
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["fetch1"] });
-      setScore('');
+      setScore("");
       setPlayerName("");
       setPlayerPhone("");
       setImageUrl("");
       setUserInfoEntered(false);
+      setPrompt("");
     },
   });
-
-
 
   const handleNext = () => {
     console.log(playerName + ":" + playerScore);
@@ -55,12 +72,14 @@ function ScoreCard({ playerScore, playerName, setPlayerName, setScore, setUserIn
     postScore({
       name: playerName,
       phone: playerPhone,
-      score: parseInt(playerScore,10)
+      score: parseInt(playerScore, 10),
+      prompt: prompt,
+      base64: imageUrl
     });
   };
   return (
     <>
-      <div className="flex items-center justify-center rounded-sm">
+      <div className="flex items-center justify-center rounded-sm p-5">
         <div className="bg-slate-50 text-black p-6 rounded-lg shadow-md text-center ">
           <h2 className="text-2xl font-bold mb-4">Your Similarity Score</h2>
           <div className="m-5 bg-slate-50 rounded-md p-2">
@@ -83,10 +102,12 @@ function ScoreCard({ playerScore, playerName, setPlayerName, setScore, setUserIn
           >
             Save Score
           </button>
-          {isPending && <p className="bg-custom-secondary break-words whitespace-normal text-center">{`Loading`}</p>}
+          {isPending && (
+            <span className="loading loading-dots loading-lg p-1"></span>
+          )}
           {postError && (
-          <p className="text-red-500 break-words whitespace-normal text-center ">{`Please try again later.`}</p>
-        )}
+            <p className="text-red-500 break-words whitespace-normal text-center ">{`Please try again later.`}</p>
+          )}
         </div>
       </div>
     </>
