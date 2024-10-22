@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import image from "../assets/questionMark.png";
-import loadingGif from "../assets/Cube@1x-1.0s-200px-200px.gif";
+import loadingGif from "../assets/SaltLoading.gif";
 
 type Props = {
   setScore: React.Dispatch<React.SetStateAction<string>>;
@@ -162,7 +162,7 @@ function ImageGenerator({
     if (fetchError) {
       setTimeout(() => {
         setfetchError(false);
-      }, 2000);
+      }, 1000);
     }
   }, [fetchError]);
 
@@ -229,7 +229,7 @@ function ImageGenerator({
           {/* <div className="w-1/3 bg-custom-primary rounded-lg shadow-lg p-6 mb-6"> */}
           <div className="flex items-center justify-center mb-4">
             {isLoading ? (
-              <img src={loadingGif} alt="Loading..." className="w-full" />
+              <img src={loadingGif} alt="Loading..." className="w-full rounded-md" />
             ) : (
               <img
                 src={

@@ -103,7 +103,7 @@ function ScoreCard({
             Save Score
           </button>
           {isPending && (
-            <span className="loading loading-dots loading-lg p-1"></span>
+            <div className="flex justify-center items-center"><span className="loading loading-dots loading-lg p-1"></span></div>
           )}
           {postError && (
             <p className="text-red-500 break-words whitespace-normal text-center ">{`Please try again later.`}</p>
