@@ -45,3 +45,10 @@ jobs:
           service: ${{ vars.GC_SERVICE_NAME }}
           image: ${{ env.IMAGE_URL }}
           min-instances: 1
+          env: |
+            DB_URL=${{ vars.DB_URL }}
+            DB_USERNAME=${{ vars.DB_USERNAME }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            IMAGE_KIT_URL_ENDPOINT=${{ vars.IMAGE_KIT_URL_ENDPOINT }}
+            IMAGE_KIT_PRIVATE_KEY=${{ secrets.IMAGE_KIT_PRIVATE_KEY }}
+            IMAGE_KIT_PUBLIC_KEY=${{ vars.IMAGE_KIT_PUBLIC_KEY }}
