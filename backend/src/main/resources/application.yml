@@ -1,6 +1,10 @@
 spring:
   config:
     import: optional:file:.env.local[.properties]
+  imagekit:
+    url-endpoint: ${url-endpoint}
+    private-key: ${private-key}
+    public-key: ${public-key}
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${DATABASE_URL}
@@ -27,3 +31,4 @@ logging:
       springframework:
         boot:
           autoconfigure: ERROR
+

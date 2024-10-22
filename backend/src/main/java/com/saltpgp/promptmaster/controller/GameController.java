@@ -40,7 +40,7 @@ public class GameController {
     @PostMapping("/score")
     public ResponseEntity<ScoreBoard> addScore(@RequestBody IncomingScoreDto scoreDto) {
 
-        ScoreBoard score = service.addScore(scoreDto.name(),scoreDto.score(), scoreDto.phone());
+        ScoreBoard score = service.addScore(scoreDto.name(),scoreDto.score(), scoreDto.phone(), scoreDto.prompt(), scoreDto.base64());
         return ResponseEntity.accepted().body(score);
     }
 
@@ -49,6 +49,12 @@ public class GameController {
 
         UserForm form = service.addForm(formDto.name(),formDto.company(),formDto.email(),formDto.phone());
         return ResponseEntity.accepted().body(form);
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadImage(@RequestBody String base64Image) {
+        String imageUrl = service.uploadBase64Image(base64Image,"kiran");
+        return ResponseEntity.ok(imageUrl);
     }
 
 }
