@@ -5,6 +5,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 export type NewPost = {
   name: string;
   company: string;
+  role: string;
   email: string;
   phone: string
 
@@ -15,6 +16,7 @@ function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     company: "",
+    role: "",
     email: "",
     phonenumber: "",
   });
@@ -43,6 +45,7 @@ function ContactForm() {
       setFormData({
         name: "",
         company: "",
+        role: "",
         email: "",
         phonenumber: "",
       })
@@ -61,15 +64,14 @@ function ContactForm() {
         [name]: value,
       };
     });
-    console.log(formData);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(formData);
     postForm({
       name: formData.name,
       company: formData.company,
+      role: formData.role,
       email: formData.email,
       phone: formData.phonenumber
     });
@@ -131,6 +133,23 @@ function ContactForm() {
             </div>
             <div>
               <label
+                htmlFor="role"
+                className="block text-gray-800 font-semibold mb-2"
+              >
+                Role<sup className="text-red-500"> *</sup>
+              </label>
+              <input
+                id="role"
+                name="role"
+                type="text"
+                placeholder="Enter your role"
+                value={formData.role}
+                onChange={handleChange}
+                className="block w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-500 shadow-sm transition-all duration-200"
+              />
+            </div>
+            <div>
+              <label
                 htmlFor="email"
                 className="block text-gray-800 font-semibold mb-2"
               >
@@ -166,12 +185,12 @@ function ContactForm() {
 
             <button
               type="submit"
-              className={`w-full text-white font-semibold py-3 btn btn-primary ${formData.name==="" || formData.company==="" || formData.email==="" ? 'btn-disabled' : ''
+              className={`w-full text-white font-semibold py-3 btn btn-primary ${formData.name==="" || formData.company==="" || formData.role==="" || formData.email==="" ? 'btn-disabled' : ''
         }`}
             >
               Submit
             </button>
-            {isPending && <p className="bg-custom-secondary break-words whitespace-normal text-center">{`Loading`}</p>}
+            {isPending && <div className="flex items-center justify-center"><span className="loading loading-dots loading-lg p-1 text-center"></span></div>}
           {postErrorDisplay && (
           <p className="text-red-500 break-words whitespace-normal text-center ">{`Please try again later.`}</p>
         )}
