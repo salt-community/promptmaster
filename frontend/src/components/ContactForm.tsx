@@ -88,7 +88,7 @@ function ContactForm() {
   return (
     <>
       <div className="mt-7 mb-4 flex flex-col items-center">
-        <h1 className="text-4xl text-white font-bold mb-6">GET IN TOUCH WITH US</h1>
+        <h1 className="text-4xl text-white font-bold mb-6">Get in touch with us</h1>
       </div>
       <div className="flex justify-center mt-4 mb-4">
         <div className="formContainer bg-white shadow-lg p-8 md:p-10 rounded-xl flex flex-col items-center w-11/12 md:w-2/3 lg:w-1/2">
@@ -158,7 +158,7 @@ function ContactForm() {
               <input
                 id="email"
                 name="email"
-                type="text"
+                type="email"
                 placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
