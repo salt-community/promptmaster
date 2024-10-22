@@ -49,8 +49,8 @@ public class GameService {
         return scoreBoardRepository.save(NewScore);
     }
 
-    public UserForm addForm(String name, String company, String email, String phone) {
-        UserForm newForm = new UserForm(name, company, email, phone);
+    public UserForm addForm(String name, String company,String role, String email, String phone) {
+        UserForm newForm = new UserForm(name, company, role, email, phone);
         return userFormRepository.saveUserForm(newForm);
     }
 
@@ -67,6 +67,9 @@ public class GameService {
             // Optional configurations for upload
             fileCreateRequest.setUseUniqueFileName(true); // Ensure unique file name
             fileCreateRequest.setPrivateFile(false); // Make file public
+
+            // Set folder where the image should be uploaded
+            fileCreateRequest.setFolder("/" + "promptmasterimages");
 
 
             // Upload the image
