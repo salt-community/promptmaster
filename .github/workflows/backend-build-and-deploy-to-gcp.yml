@@ -46,10 +46,10 @@ jobs:
           image: ${{ env.IMAGE_URL }}
           # min-instances: 1
           env_vars: |-
-            DB_URL=${{ vars.DB_URL }}
-            DB_USERNAME=${{ vars.DB_USERNAME }}
+            DATABASE_URL=${{ vars.DATABASE_URL }}
+            DATABASE_USERNAME=${{ vars.DATABASE_USERNAME }}
             IMAGE_KIT_URL_ENDPOINT=${{ vars.IMAGE_KIT_URL_ENDPOINT }}
             IMAGE_KIT_PUBLIC_KEY=${{ vars.IMAGE_KIT_PUBLIC_KEY }}
           secrets: |-
-            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
             IMAGE_KIT_PRIVATE_KEY=${{ secrets.IMAGE_KIT_PRIVATE_KEY }}
