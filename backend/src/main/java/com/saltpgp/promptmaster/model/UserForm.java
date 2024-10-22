@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "owner")
+@Table(name = "userform")
 public class UserForm {
 
     @Id
@@ -25,6 +25,9 @@ public class UserForm {
     private String company;
 
     @Column
+    private String role;
+
+    @Column
     private String email;
 
     @Column
@@ -34,9 +37,10 @@ public class UserForm {
     public UserForm() {
     }
 
-    public UserForm(String name, String company, String email, String phone) {
+    public UserForm(String name, String company,String role, String email, String phone) {
         this.name = name;
         this.company = company;
+        this.role = role;
         this.email = email;
         this.phone = phone;
     }

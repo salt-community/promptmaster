@@ -47,7 +47,7 @@ public class GameController {
     @PostMapping("/form")
     public ResponseEntity<UserForm> addForm(@RequestBody IncomingUserFormDto formDto) {
 
-        UserForm form = service.addForm(formDto.name(),formDto.company(),formDto.email(),formDto.phone());
+        UserForm form = service.addForm(formDto.name(),formDto.company(), formDto.role(), formDto.email(),formDto.phone());
         return ResponseEntity.accepted().body(form);
     }
 
