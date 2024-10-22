@@ -50,5 +50,6 @@ jobs:
             DATABASE_USERNAME=${{ vars.DATABASE_USERNAME }}
             IMAGE_KIT_URL_ENDPOINT=${{ vars.IMAGE_KIT_URL_ENDPOINT }}
             IMAGE_KIT_PUBLIC_KEY=${{ vars.IMAGE_KIT_PUBLIC_KEY }}
+          secrets: |-
             DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
             IMAGE_KIT_PRIVATE_KEY=${{ secrets.IMAGE_KIT_PRIVATE_KEY }}
