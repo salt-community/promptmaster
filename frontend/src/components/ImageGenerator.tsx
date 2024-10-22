@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import image from "../assets/empty.png";
+import image from "../assets/questionMark.png";
 import loadingGif from "../assets/Cube@1x-1.0s-200px-200px.gif";
 
 type Props = {
@@ -13,6 +13,8 @@ type Props = {
   setUserInfoEntered: React.Dispatch<React.SetStateAction<boolean>>;
   imageUrl: string;
   setImageUrl: React.Dispatch<React.SetStateAction<string>>;
+  prompt: string;
+  setPrompt: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function ImageGenerator({
@@ -26,12 +28,14 @@ function ImageGenerator({
   setUserInfoEntered,
   imageUrl,
   setImageUrl,
+  prompt,
+  setPrompt,
 }: Props) {
   // const [name, setName] = useState('');
   // const [phone, setPhone] = useState('');
   // const [imageUrl, setImageUrl] = useState<string>("");
   let imageUrl2 = "";
-  const [prompt, setPrompt] = useState<string>("");
+  // const [prompt, setPrompt] = useState<string>("");
   const API_KEY = import.meta.env.VITE_API_KEY;
   const [fetchError, setfetchError] = useState(false);
   const [fetchErrorLog, setfetchErrorLog] = useState("");
@@ -44,6 +48,7 @@ function ImageGenerator({
       prompt: prompt === "" ? "a white siamese cat" : prompt,
       n: 1,
       size: "1024x1024",
+      response_format: "b64_json",
     };
     await fetch("https://api.openai.com/v1/images/generations", {
       method: "POST",
@@ -60,10 +65,11 @@ function ImageGenerator({
         return response.json();
       })
       .then((data) => {
-        setImageUrl(data?.data[0]?.url);
-        imageUrl2 = data?.data[0]?.url;
-        console.log(data?.data[0]?.url);
+        setImageUrl(data?.data[0]?.b64_json);
+        imageUrl2 = data?.data[0]?.b64_json;
+        console.log(data?.data[0]?.b64_json);
         console.log(imageUrl);
+        console.log(data);
       })
       .then(() => console.log("iam here"))
       .catch((e) => {
@@ -88,18 +94,18 @@ function ImageGenerator({
           content: [
             {
               type: "text",
-              text: "Compare these two images and assign a score in percentage on how the objects in the image are related using semantic similarity (i.e., whether the images depict similar objects).Do not give 0 as an answer and give scores above 85 only if the similarity is really close. Reply as a number with just the score as a value between 1 and 100",
+              text: "Compare these two images and assign a score in percentage based on how related the objects in the images are using semantic similarity. Consider factors like the number of common objects, their positions, and how closely the overall themes or scenes match. A score between 90 and 100 should be given only if the images depict nearly identical objects, scenes, and themes with only minor differences. A score between 75 and 89 should be given if the images share many similar objects or concepts but differ in some details such as object count, positions, or background elements. A score between 50 and 74 should be given if the images share some common objects or general themes but also contain notable differences in content or composition. A score between 25 and 49 should be given if the images have a few vaguely related elements, but the overall themes and objects are largely different. A score between 1 and 24 should be given if the images depict completely different objects, themes, or concepts with minimal relation between them. Respond with a single number between 1 and 100.",
             },
             {
               type: "image_url",
               image_url: {
-                url: targetImageUrl,
+                url: `data:image/png;base64,${targetImageUrl}`,
               },
             },
             {
               type: "image_url",
               image_url: {
-                url: imageUrl2,
+                url: `data:image/png;base64,${imageUrl2}`,
               },
             },
           ],
@@ -140,7 +146,7 @@ function ImageGenerator({
   async function handleClick() {
     console.log("hi");
     setScore("");
-    setPrompt("");
+    // setPrompt("");
     await sendPromptToOpenAI();
     console.log("prompt is done");
     await sendimagestoOpenAI();
@@ -168,12 +174,12 @@ function ImageGenerator({
   }
 
   return (
-    <div className="w-1/3 bg-custom-primary rounded-lg shadow-lg p-6 mb-6">
+    <div className="w-[35%] bg-custom-primary rounded-lg shadow-lg p-6 mb-6">
       {!userInfoEntered ? (
         <>
           {" "}
           <div className="flex justify-center h-full items-center bg-slate-300 rounded-md">
-            <form onSubmit={handleUserInfoSubmit} >
+            <form onSubmit={handleUserInfoSubmit}>
               {/* <p className="text-center text-lg font-semibold text-gray-800 mb-5">Enter your name and number to start playing</p> */}
               <div className="mb-4">
                 <label className="block text-gray-700 text-lg font-bold mb-2">
@@ -201,11 +207,16 @@ function ImageGenerator({
                   placeholder="Enter your phone number"
                   className="bg-white text-gray-700 text-lg px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-secondary placeholder-gray-500 w-full"
                 />
+                <p className="text-gray-500 text-xs mt-1 text-center">
+                  *Phone number used to contact the winner.
+                </p>
               </div>
 
               <button
                 type="submit"
-                className="bg-custom-secondary hover:bg-orange-300 text-white font-bold px-6 py-2 rounded-full transition-all duration-300"
+                className={`w-full text-white font-semibold py-3 btn btn-primary ${
+                  playerName === "" || playerPhone === "" ? "btn-disabled" : ""
+                }`}
               >
                 Submit
               </button>
@@ -221,27 +232,31 @@ function ImageGenerator({
               <img src={loadingGif} alt="Loading..." className="w-full" />
             ) : (
               <img
-                src={imageUrl === "" ? image : imageUrl}
+                src={
+                  imageUrl === "" ? image : `data:image/png;base64,${imageUrl}`
+                }
                 alt="Generated"
                 className="w-full rounded-md"
               />
             )}
           </div>
 
-          <div className="flex items-center justify-between rounded-lg bg-slate-400 p-4 shadow-md">
+          <div className="flex-col rounded-lg bg-slate-400 p-4 shadow-md">
             <textarea
               placeholder="Enter your prompt here"
               name="prompt"
               value={prompt}
               onChange={handleChange}
-              className="bg-white text-gray-700 text-lg px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-secondary placeholder-gray-500 overflow-ellipsis"
+              className="w-full lg:h-20 bg-white text-gray-700 text-base px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-secondary placeholder-gray-500 overflow-ellipsis"
             />
-            <button
-              className="bg-custom-secondary hover:bg-orange-300 text-white font-bold px-6 py-2 rounded-full ml-4 transition-all duration-300"
-              onClick={handleClick}
-            >
-              Generate
-            </button>
+            <div className="flex justify-center items-center">
+              <button
+                className="bg-custom-secondary hover:bg-orange-300 text-white font-bold px-6 py-2 rounded-full ml-4 transition-all duration-300"
+                onClick={handleClick}
+              >
+                Generate
+              </button>
+            </div>
           </div>
           {fetchError && (
             <p className="text-red-500 text-sm break-words whitespace-normal flex justify-center items-center text-center">
