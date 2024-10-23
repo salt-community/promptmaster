@@ -2,6 +2,9 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import image from "../assets/questionMark_2.png"
 import loadingGif from "../assets/SaltLoading.gif";
 
+const PROMPT =
+  "Compare these two images and assign a score in percentage based on how related the objects in the images are using semantic similarity. Consider factors like the number of common objects, their positions, and how closely the overall themes or scenes match. A score between 90 and 100 should be given only if the images depict nearly identical objects, scenes, and themes with only minor differences. A score between 75 and 89 should be given if the images share many similar objects or concepts but differ in some details such as object count, positions, or background elements. A score between 50 and 74 should be given if the images share some common objects or general themes but also contain notable differences in content or composition. A score between 25 and 49 should be given if the images have a few vaguely related elements, but the overall themes and objects are largely different. A score between 1 and 24 should be given if the images depict completely different objects, themes, or concepts with minimal relation between them. Respond with a single number between 1 and 100.";
+
 type Props = {
   setScore: React.Dispatch<React.SetStateAction<string>>;
   targetImageUrl: string;
@@ -94,7 +97,7 @@ function ImageGenerator({
           content: [
             {
               type: "text",
-              text: "Compare these two images and assign a score in percentage based on how related the objects in the images are using semantic similarity. Consider factors like the number of common objects, their positions, and how closely the overall themes or scenes match. A score between 90 and 100 should be given only if the images depict nearly identical objects, scenes, and themes with only minor differences. A score between 75 and 89 should be given if the images share many similar objects or concepts but differ in some details such as object count, positions, or background elements. A score between 50 and 74 should be given if the images share some common objects or general themes but also contain notable differences in content or composition. A score between 25 and 49 should be given if the images have a few vaguely related elements, but the overall themes and objects are largely different. A score between 1 and 24 should be given if the images depict completely different objects, themes, or concepts with minimal relation between them. Respond with a single number between 1 and 100.",
+              text: PROMPT,
             },
             {
               type: "image_url",
