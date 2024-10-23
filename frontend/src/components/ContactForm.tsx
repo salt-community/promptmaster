@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 
 export type NewPost = {
@@ -49,6 +50,7 @@ function ContactForm() {
         email: "",
         phonenumber: "",
       })
+      toast.success("Submitted successfully")
     },
   });
 
@@ -197,6 +199,7 @@ function ContactForm() {
           </form>
         </div>
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </>
   );
 }
