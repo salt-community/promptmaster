@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import image from "../assets/questionMark.png";
+import image from "../assets/questionMark_2.png"
 import loadingGif from "../assets/SaltLoading.gif";
 
 type Props = {
@@ -247,7 +247,7 @@ function ImageGenerator({
               name="prompt"
               value={prompt}
               onChange={handleChange}
-              className="w-full lg:h-20 bg-white text-gray-700 text-base px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-secondary placeholder-gray-500 overflow-ellipsis"
+              className="w-full lg:h-32 bg-white text-gray-700 text-base px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-secondary placeholder-gray-500 overflow-ellipsis"
             />
             <div className="flex justify-center items-center">
               <button
