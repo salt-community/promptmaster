@@ -86,7 +86,7 @@ function TargetImage({ targetImageUrl }: Props) {
         </div>
         <div className="flex justify-stretch items-center">
           <p className="text-center text-lg font-semibold text-gray-800  border-l-4 rounded-md ">
-            Can You Match This Masterpiece? Let’s See Your Skills!
+            Can you match this masterpiece? Let’s see your skills!
           </p>
 
           {/* <div className="flex justify-center items-center pt-2">

@@ -7,8 +7,8 @@ function TopNav() {
         </div>
         <div><p className="text-4xl text-white font-bold">Prompt Master</p></div>
         <div className="">
-          <a href="https://salt.dev/contact/" target="_blank" rel="noopener noreferrer"><button className="btn bg-white hover:bg-custom-tertiary hover:text-white hover:border-custom-tertiary hover:scale-x-105 ">
-            Contact Us
+          <a href="https://salt.dev/contact/" target="_blank" rel="noopener noreferrer"><button className="btn bg-white text-custom-secondary border-white hover:bg-custom-tertiary hover:text-white hover:border-custom-tertiary hover:scale-x-105 ">
+            Contact us
           </button></a>
           
         </div>
