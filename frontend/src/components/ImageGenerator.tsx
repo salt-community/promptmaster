@@ -179,7 +179,7 @@ function ImageGenerator({
         <>
           {" "}
           <div className="flex justify-center h-full items-center bg-slate-300 rounded-md">
-            <form onSubmit={handleUserInfoSubmit}>
+            <form onSubmit={handleUserInfoSubmit} className="p-2">
               {/* <p className="text-center text-lg font-semibold text-gray-800 mb-5">Enter your name and number to start playing</p> */}
               <div className="mb-4">
                 <label className="block text-gray-700 text-lg font-bold mb-2">
@@ -207,8 +207,8 @@ function ImageGenerator({
                   placeholder="Enter your phone number"
                   className="bg-white text-gray-700 text-lg px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-secondary placeholder-gray-500 w-full"
                 />
-                <p className="text-gray-500 text-xs mt-1 text-center">
-                  *Phone number used to contact the winner.
+                <p className="text-gray-500 text-xs mt-1 text-center break-words ">
+                  *Phone number will only be used for contacting the winner.
                 </p>
               </div>
 
