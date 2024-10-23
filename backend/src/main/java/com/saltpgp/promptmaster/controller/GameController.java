@@ -40,7 +40,7 @@ public class GameController {
     @PostMapping("/score")
     public ResponseEntity<ScoreBoard> addScore(@RequestBody IncomingScoreDto scoreDto) {
 
-        ScoreBoard score = service.addScore(scoreDto.name(),scoreDto.score(), scoreDto.phone(), scoreDto.prompt(), "base64");
+        ScoreBoard score = service.addScore(scoreDto.name(),scoreDto.score(), scoreDto.phone(), scoreDto.prompt(), scoreDto.base64());
         return ResponseEntity.accepted().body(score);
     }
 

@@ -44,8 +44,9 @@ public class GameService {
 
     }
 
-    public ScoreBoard addScore(String name, long score, String phone, String prompt, String base64) {              String imageUrl= uploadBase64Image(base64, name + ".jpg");
-        ScoreBoard NewScore = new ScoreBoard(name,score,phone,prompt,imageUrl,base64);
+    public ScoreBoard addScore(String name, long score, String phone, String prompt, String base64) {
+        String imageUrl= uploadBase64Image(base64, name + ".jpg");
+        ScoreBoard NewScore = new ScoreBoard(name,score,phone,prompt,imageUrl,"base64");
         return scoreBoardRepository.save(NewScore);
     }
 
