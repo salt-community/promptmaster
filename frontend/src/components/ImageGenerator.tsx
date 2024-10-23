@@ -2,8 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import image from "../assets/questionMark_3.png";
 // import loadingGif from "../assets/SaltLoading.gif";
 
-const PROMPT =
-  "Compare these two images and assign a score in percentage based on how related the objects in the images are using semantic similarity. Consider factors like the number of common objects, their positions, and how closely the overall themes or scenes match. A score between 90 and 100 should be given only if the images depict nearly identical objects, scenes, and themes with only minor differences. A score between 75 and 89 should be given if the images share many similar objects or concepts but differ in some details such as object count, positions, or background elements. A score between 50 and 74 should be given if the images share some common objects or general themes but also contain notable differences in content or composition. A score between 25 and 49 should be given if the images have a few vaguely related elements, but the overall themes and objects are largely different. A score between 1 and 24 should be given if the images depict completely different objects, themes, or concepts with minimal relation between them. Respond with only a single number between 1 and 100. No text.";
+const PROMPT ="Compare these two images and assign a score between 1 and 100 based on their semantic similarity: 91-100 (nearly identical), 86-90 (very similar with slight variations), 81-85 (many similar concepts with notable differences), 76-80 (several common elements with distinct themes), 71-75 (some shared objects with significant differences), 66-70 (vaguely related with major thematic differences), 61-65 (limited similarity), 51-60 (few common elements), 26-50 (rarely related), and 1-25 (completely different). Respond with only a single number between 1 and 100. No text.";
 
 type Props = {
   setScore: React.Dispatch<React.SetStateAction<string>>;
