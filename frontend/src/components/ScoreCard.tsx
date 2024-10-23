@@ -20,7 +20,6 @@ export type NewPost = {
   score: number;
   prompt: string;
   base64: string;
-
 };
 function ScoreCard({
   playerScore,
@@ -43,7 +42,7 @@ function ScoreCard({
     isPending,
   } = useMutation<unknown, Error, NewPost>({
     mutationFn: (newPost) =>
-      fetch(`${baseURL}/score`, {
+      fetch(`${baseURL}/promptmaster/score`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +73,7 @@ function ScoreCard({
       phone: playerPhone,
       score: parseInt(playerScore, 10),
       prompt: prompt,
-      base64: imageUrl
+      base64: imageUrl,
     });
   };
   return (
@@ -85,11 +84,13 @@ function ScoreCard({
           <div className="m-5 bg-slate-50 rounded-md p-2">
             <div
               className="radial-progress"
-              style={{
-                "--value": `${playerScore}`,
-                "--size": "12rem",
-                "--thickness": "4px",
-              }as React.CSSProperties}
+              style={
+                {
+                  "--value": `${playerScore}`,
+                  "--size": "12rem",
+                  "--thickness": "4px",
+                } as React.CSSProperties
+              }
               role="progressbar"
             >
               {playerScore + "%"}
@@ -103,7 +104,9 @@ function ScoreCard({
             Save Score
           </button>
           {isPending && (
-            <div className="flex justify-center items-center"><span className="loading loading-dots loading-lg p-1"></span></div>
+            <div className="flex justify-center items-center">
+              <span className="loading loading-dots loading-lg p-1"></span>
+            </div>
           )}
           {postError && (
             <p className="text-red-500 break-words whitespace-normal text-center ">{`Please try again later.`}</p>

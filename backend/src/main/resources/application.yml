@@ -25,6 +25,8 @@ spring:
   output:
     ansi:
       enabled: always
+api:
+  password: ${PROMPTMASTER_PASSWORD}
 logging:
   level:
     org:

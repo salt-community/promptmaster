@@ -1,51 +1,52 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-
+import { useLogin } from "../hooks/useLogin";
 
 type scoreType = {
-    name: string;
-    score: number;
-    phone: string;
-}
+  name: string;
+  score: number;
+  phone: string;
+};
 
 function LeaderBoard() {
+  const baseURL = import.meta.env.VITE_BASE_URL;
+  const [fetchErrorLog, setfetchErrorLog] = useState("");
+  const [leaderboard, setLeaderBoard] = useState([]);
+  const { login } = useLogin();
+  const { data, isError: fetchError } = useQuery({
+    queryKey: ["fetch1"],
+    queryFn: () =>
+      fetch(`${baseURL}/promptmaster/scoreboard`, {
+        headers: { Authorization: login },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw Error;
+          }
+          return response.json();
+        })
+        .then((data) => data)
+        .catch((e) => {
+          setfetchErrorLog(e.message);
+        }),
+  });
 
-const baseURL= import.meta.env.VITE_BASE_URL;
-const [fetchErrorLog, setfetchErrorLog] = useState("");
-const [leaderboard, setLeaderBoard] = useState([])
-const { data, isError: fetchError } = useQuery({
-  queryKey: ["fetch1"],
-  queryFn: () =>
-    fetch(`${baseURL}/scoreboard`)
-      .then((response) => {
-        if(!response.ok){
-            throw Error
-        }
-        return response.json()})
-      .then((data) => data)
-      .catch((e) => {
-        setfetchErrorLog(e.message);
-      }),
-});
-
-useEffect(() => {
+  useEffect(() => {
     setLeaderBoard(data);
   }, [data]);
 
-
-
-  // const [loggedIn, setLoggedIn] = useState(false);
-  const topThree = leaderboard?.sort((a: scoreType, b:scoreType) => b.score - a.score).slice(0, 5);
+  const topThree = leaderboard
+    ?.sort((a: scoreType, b: scoreType) => b.score - a.score)
+    .slice(0, 5);
 
   return (
     <>
-      
       <div className="bg-custom-primary p-6  shadow-md">
         <h1 className="text-custom-tertiary text-3xl font-bold mb-4 text-center">
           Leaderboard
         </h1>
         <ul className="space-y-2">
-          {topThree?.map((entry:scoreType, index) => (
+          {topThree?.map((entry: scoreType, index) => (
             <li
               key={index}
               className="flex justify-between items-center p-2 border-b border-custom-secondary"

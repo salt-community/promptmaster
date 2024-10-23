@@ -232,7 +232,11 @@ function ImageGenerator({
           {/* <div className="w-1/3 bg-custom-primary rounded-lg shadow-lg p-6 mb-6"> */}
           <div className="flex items-center justify-center mb-4">
             {isLoading ? (
-              <img src={loadingGif} alt="Loading..." className="w-full rounded-md" />
+              <img
+                src={loadingGif}
+                alt="Loading..."
+                className="w-full rounded-md"
+              />
             ) : (
               <img
                 src={

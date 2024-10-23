@@ -1,16 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
-
 export type NewPost = {
   name: string;
   company: string;
   role: string;
   email: string;
-  phone: string
-
+  phone: string;
 };
-
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -20,7 +17,7 @@ function ContactForm() {
     email: "",
     phonenumber: "",
   });
-  const baseURL= import.meta.env.VITE_BASE_URL;
+  const baseURL = import.meta.env.VITE_BASE_URL;
   const [postErrorDisplay, setPostErrorDisplay] = useState(false);
 
   const {
@@ -29,7 +26,7 @@ function ContactForm() {
     isPending,
   } = useMutation<unknown, Error, NewPost>({
     mutationFn: (newPost) =>
-      fetch(`${baseURL}/form`, {
+      fetch(`${baseURL}/promptmaster/form`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +45,7 @@ function ContactForm() {
         role: "",
         email: "",
         phonenumber: "",
-      })
+      });
     },
   });
 
@@ -73,7 +70,7 @@ function ContactForm() {
       company: formData.company,
       role: formData.role,
       email: formData.email,
-      phone: formData.phonenumber
+      phone: formData.phonenumber,
     });
   }
 
@@ -88,7 +85,9 @@ function ContactForm() {
   return (
     <>
       <div className="mt-7 mb-4 flex flex-col items-center">
-        <h1 className="text-4xl text-white font-bold mb-6">GET IN TOUCH WITH US</h1>
+        <h1 className="text-4xl text-white font-bold mb-6">
+          GET IN TOUCH WITH US
+        </h1>
       </div>
       <div className="flex justify-center mt-4 mb-4">
         <div className="formContainer bg-white shadow-lg p-8 md:p-10 rounded-xl flex flex-col items-center w-11/12 md:w-2/3 lg:w-1/2">
@@ -185,15 +184,25 @@ function ContactForm() {
 
             <button
               type="submit"
-              className={`w-full text-white font-semibold py-3 btn btn-primary ${formData.name==="" || formData.company==="" || formData.role==="" || formData.email==="" ? 'btn-disabled' : ''
-        }`}
+              className={`w-full text-white font-semibold py-3 btn btn-primary ${
+                formData.name === "" ||
+                formData.company === "" ||
+                formData.role === "" ||
+                formData.email === ""
+                  ? "btn-disabled"
+                  : ""
+              }`}
             >
               Submit
             </button>
-            {isPending && <div className="flex items-center justify-center"><span className="loading loading-dots loading-lg p-1 text-center"></span></div>}
-          {postErrorDisplay && (
-          <p className="text-red-500 break-words whitespace-normal text-center ">{`Please try again later.`}</p>
-        )}
+            {isPending && (
+              <div className="flex items-center justify-center">
+                <span className="loading loading-dots loading-lg p-1 text-center"></span>
+              </div>
+            )}
+            {postErrorDisplay && (
+              <p className="text-red-500 break-words whitespace-normal text-center ">{`Please try again later.`}</p>
+            )}
           </form>
         </div>
       </div>
