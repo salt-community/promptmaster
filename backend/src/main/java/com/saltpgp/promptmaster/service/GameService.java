@@ -55,33 +55,54 @@ public class GameService {
         return userFormRepository.saveUserForm(newForm);
     }
 
-    public String uploadBase64Image(String base64Image, String name ) {
-        try {
-            // Initialize ImageKit
-            ImageKit imageKit = ImageKit.getInstance();
-            Configuration config = new Configuration(publicKey, privateKey, urlEndpoint);
-            imageKit.setConfig(config);
+    public String uploadBase64Image(String base64Image, String name) {
+        int maxRetries = 2; // Maximum number of retry attempts
+        int attempt = 0; // Current attempt counter
+        String uploadedImageUrl = null;
 
-            // Prepare the request for uploading the base64 image
-            FileCreateRequest fileCreateRequest = new FileCreateRequest(base64Image, name);
+        while (attempt < maxRetries) {
+            try {
+                ImageKit imageKit = ImageKit.getInstance();
+                Configuration config = new Configuration(publicKey, privateKey, urlEndpoint);
+                imageKit.setConfig(config);
 
-            // Optional configurations for upload
-            fileCreateRequest.setUseUniqueFileName(true); // Ensure unique file name
-            fileCreateRequest.setPrivateFile(false); // Make file public
+                // Prepare the request for uploading the base64 image
+                FileCreateRequest fileCreateRequest = new FileCreateRequest(base64Image, name);
 
-            // Set folder where the image should be uploaded
-            fileCreateRequest.setFolder("/" + "promptmasterimages");
+                // Optional configurations for upload
+                fileCreateRequest.setUseUniqueFileName(true); // Ensure unique file name
+                fileCreateRequest.setPrivateFile(false); // Make file public
 
+                // Set folder where the image should be uploaded
+                fileCreateRequest.setFolder("/" + "promptmasterimages");
 
-            // Upload the image
-            Result result = imageKit.upload(fileCreateRequest);
+                // Upload the image
+                Result result = imageKit.upload(fileCreateRequest);
 
+                int statusCode = result.getResponseMetaData().getHttpStatusCode();
+                // Check if the HTTP status code indicates success (e.g., 200)
+                if (statusCode >= 200 && statusCode < 300) {
+                    uploadedImageUrl = result.getUrl();  // URL of the uploaded image
+                    break; // Exit the loop if upload is successful
+                } else {
+                    // Log the error status (optional)
+                    System.out.println("Error during upload: HTTP Status Code " + result.getResponseMetaData().getHttpStatusCode());
+                }
+            } catch (Exception e) {
+                // Log the exception message (optional)
+                System.out.println("Exception during upload attempt " + (attempt + 1) + ": " + e.getMessage());
+            }
 
-            return result.getUrl();  // URL of the uploaded image
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return "Error occurred: " + e.getMessage();
+            attempt++; // Increment attempt counter
+            System.out.println("Retrying upload... Attempt " + (attempt + 1));
         }
+
+        // If upload was unsuccessful after all retries
+        if (uploadedImageUrl == null) {
+            return "Error occurred: Unable to upload image after " + maxRetries + " attempts.";
+        }
+//        System.out.println("attempt:." + attempt+1);
+        return uploadedImageUrl; // Return the URL of the uploaded image
     }
 
 
