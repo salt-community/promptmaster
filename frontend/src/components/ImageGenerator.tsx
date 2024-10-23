@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import image from "../assets/questionMark_2.png"
-import loadingGif from "../assets/SaltLoading.gif";
+import image from "../assets/questionMark_3.png";
+// import loadingGif from "../assets/SaltLoading.gif";
 
 const PROMPT =
   "Compare these two images and assign a score in percentage based on how related the objects in the images are using semantic similarity. Consider factors like the number of common objects, their positions, and how closely the overall themes or scenes match. A score between 90 and 100 should be given only if the images depict nearly identical objects, scenes, and themes with only minor differences. A score between 75 and 89 should be given if the images share many similar objects or concepts but differ in some details such as object count, positions, or background elements. A score between 50 and 74 should be given if the images share some common objects or general themes but also contain notable differences in content or composition. A score between 25 and 49 should be given if the images have a few vaguely related elements, but the overall themes and objects are largely different. A score between 1 and 24 should be given if the images depict completely different objects, themes, or concepts with minimal relation between them. Respond with a single number between 1 and 100.";
@@ -230,9 +230,22 @@ function ImageGenerator({
         <>
           {/* <div className="flex flex-col items-center justify-center  bg-custom-tertiary p-6"> */}
           {/* <div className="w-1/3 bg-custom-primary rounded-lg shadow-lg p-6 mb-6"> */}
-          <div className="flex items-center justify-center mb-4">
+          <div className="flex items-center justify-center mb-2">
             {isLoading ? (
-              <img src={loadingGif} alt="Loading..." className="w-full rounded-md" />
+              // <img src={loadingGif} alt="Loading..." className="w-full rounded-md" />
+              <div className="flex-col bg-gray-700 rounded-md p-4">
+                <div className="flex items-center justify-center "><img
+                  src="https://salt.dev/wp-content/uploads/2024/02/salt-logo-light.svg"
+                  className="pt-4 w-[50%]"
+                /></div>
+                
+                <img
+                  src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzIwc3J3ZzFheWVhZG13cHJqdWM3ZDIwaHl[…]bnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/kcHg0cGzX7hqsEIvzH/giphy.webp"
+                  alt="Loading..."
+                  className="w-full rounded-md p-8"
+                />
+                <p className="text-white text-center pb-4 font-bold animate-pulse">Sprinkling some magic on that prompt...</p>
+              </div>
             ) : (
               <img
                 src={
@@ -250,11 +263,11 @@ function ImageGenerator({
               name="prompt"
               value={prompt}
               onChange={handleChange}
-              className="w-full lg:h-32 bg-white text-gray-700 text-base px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-secondary placeholder-gray-500 overflow-ellipsis"
+              className="w-full lg:h-52 bg-white text-gray-700 text-base px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-secondary placeholder-gray-500 overflow-ellipsis"
             />
             <div className="flex justify-center items-center">
               <button
-                className="bg-custom-secondary hover:bg-orange-300 text-white font-bold px-6 py-2 rounded-full ml-4 transition-all duration-300"
+                className=" bg-custom-secondary hover:bg-orange-300 text-white font-bold px-6 py-2 rounded-full ml-4 transition-all duration-300"
                 onClick={handleClick}
               >
                 Generate
