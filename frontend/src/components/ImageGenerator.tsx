@@ -70,11 +70,11 @@ function ImageGenerator({
       .then((data) => {
         setImageUrl(data?.data[0]?.b64_json);
         imageUrl2 = data?.data[0]?.b64_json;
-        console.log(data?.data[0]?.b64_json);
-        console.log(imageUrl);
-        console.log(data);
+        // console.log(data?.data[0]?.b64_json);
+        // console.log(imageUrl);
+        // console.log(data);
       })
-      .then(() => console.log("iam here"))
+      .then(() => console.log(""))
       .catch((e) => {
         setScore("");
         setfetchError(true);
@@ -87,8 +87,8 @@ function ImageGenerator({
 
   async function sendimagestoOpenAI() {
     setIsLoading(true);
-    console.log(imageUrl);
-    console.log(targetImageUrl);
+    // console.log(imageUrl);
+    // console.log(targetImageUrl);
     const apiRequestBody = {
       model: "gpt-4o-mini",
       messages: [
@@ -131,7 +131,7 @@ function ImageGenerator({
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setTimeout(() => {
           setScore(data?.choices[0]?.message?.content);
         }, 2000);
@@ -147,18 +147,17 @@ function ImageGenerator({
   }
 
   async function handleClick() {
-    console.log("hi");
     setScore("");
     // setPrompt("");
     await sendPromptToOpenAI();
-    console.log("prompt is done");
+    // console.log("prompt is done");
     await sendimagestoOpenAI();
-    console.log("image comparison is done");
+    // console.log("image comparison is done");
   }
 
   function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
     setPrompt(event.target.value);
-    console.log(prompt);
+    // console.log(prompt);
   }
 
   useEffect(() => {
