@@ -208,7 +208,7 @@ function ImageGenerator({
                   placeholder="Enter your phone number"
                   className="bg-white text-gray-700 text-lg px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-secondary placeholder-gray-500 w-full"
                 />
-                <p className="text-gray-500 text-xs mt-1 text-center break-words ">
+                <p className="text-gray-950 text-xs mt-1 text-center break-words ">
                   *Phone number will only be used for contacting the winner.
                 </p>
               </div>
