@@ -273,7 +273,7 @@ function ImageGenerator({
             </div>
           </div>
           {fetchError && (
-            <p className="text-red-500 text-sm break-words whitespace-normal flex justify-center items-center text-center">
+            <p className="text-red-600 text-sm break-words whitespace-normal flex justify-center items-center text-center">
               {`Sorry,Please try again later.${fetchErrorLog}`}
             </p>
           )}
